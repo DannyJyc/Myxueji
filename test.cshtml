@@ -1,0 +1,20 @@
+﻿@{
+    var test = "a,b,c,d,e,f,g";
+    string[] temp = test.Split(',');
+
+    if (IsPost)
+    {
+        var db = Database.Open("StarterSite");
+        var a = Request.Form["a"];
+        var insert = "insert into aa(ff) values(@0)";
+        db.Execute(insert, a);
+    }
+}
+@foreach(var row in temp)
+{
+    @row<br />
+}
+<form method="post">
+    <input type="text" value="" id="a" name="a"/>
+    <button type="submit">1111</button>
+</form>

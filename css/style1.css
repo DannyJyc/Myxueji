@@ -1,0 +1,42 @@
+﻿body {
+}
+.t{
+    font-weight:500;
+    font-size:18px;
+}
+/*th{
+    font-weight: bold;
+    font-size:20px;
+}*/
+#button{
+    display:none;
+}
+
+@media screen and (max-width: 1024px) {
+    #button{
+       display:inline;
+   }
+}
+@media screen and (max-width: 767px) {
+    .glyphicon{
+        margin-top:10px;
+    }
+    #text{       
+        width:530px;
+    }
+    /*登录选项767以后手机样式爆炸*/
+}
+
+@media screen and (max-width: 414px){
+    #text{
+        width:150px;
+    }
+}
+@media screen and (max-width: 360px){
+    #text{
+        width:130px;
+    }
+}
+
+
+

@@ -1,0 +1,33 @@
+﻿
+@{
+    Session.Abandon();
+    Layout = "~/_xuejiLayout.cshtml";
+
+}
+<style>
+    .form-control {
+        width: 600px;
+    }
+
+    form {
+        padding-left: 150px;
+        padding-top: 60px;
+    }
+
+    h1 {
+        padding-left: 150px;
+    }
+</style>
+<h1>-欢迎来到学籍管理系统-</h1>
+<form action="~/dispose.cshtml" method="post">
+    <div id="text" class="form-group">
+        <label for="name">用户名:</label>
+        <input type="text" class="form-control" name="username" id="username" placeholder="请输入账户~">
+    </div>
+    <div id="text" class="form-group">
+        <label for="number">密码:</label>
+        <input type="password" class="form-control" name="password" id="password" placeholder="请输入密码~">
+    </div>
+    <input class="btn btn-primary" type="submit" value="登录">
+</form>
+

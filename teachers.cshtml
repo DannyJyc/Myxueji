@@ -1,0 +1,33 @@
+﻿@{
+    Layout = "~/_xuejiLayout.cshtml";
+    if (Session["name"] == null)
+    {
+        Response.Redirect("~/login.cshtml");
+    }
+    var db = Database.Open("StarterSite");
+    var list = "select *from teachers";
+}
+<a class="btn btn-info" href="~/addteachers.cshtml">新增教师</a>
+<table class="table table-striped table-bordered table-hover bootstrap-datatable datatable">
+    <tr class="t">
+        <th>教师姓名</th>
+        <th>职能</th>
+        <th>操作</th>
+    </tr>
+    @foreach(var row in db.Query(list))
+    {
+        <tr class="t">
+            <td class="center"><a href="~/editteachers.cshtml?id=@row.id">@row.teachers_name</a></td>
+            <td class="center">
+            @if(row.teachers_type == 1)
+            {
+                <a class="btn btn-success">讲师</a>
+            }else if(row.teachers_type == 2)
+            {
+                <a class="btn btn-primary">辅导员</a>
+            }
+            </td>
+            <td class="center"><a class="btn btn-danger" href="~/delteachers.cshtml?id=@row.id">删除</a></td>
+        </tr>
+    }
+</table>

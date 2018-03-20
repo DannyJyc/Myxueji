@@ -1,0 +1,40 @@
+﻿@{
+    Layout = "~/_xuejiLayout.cshtml";
+    var coid = Request.QueryString["coid"];
+    var cid = Request.QueryString["cid"];
+    var exid = Request.QueryString["id"];
+    var db = Database.Open("StarterSite");
+    var list = "select *from exams where id =" + exid;
+    var row = db.QuerySingle(list);
+    if (IsPost)
+    {
+        var name = Request.Form["name"];
+        var date = Request.Form["date"];
+        var type = Request.Form["type"];
+        var update = "update exams set exams_name = @0,exams_date=@1,exams_type=@2 where id =@3";
+        db.Execute(update, name, date, type, exid);
+        Response.Redirect("~/courses");
+    }
+}
+<form method="post" class="navbar-form">
+    <strong>考试名称：</strong><br />
+    <input class="form-control" type="text" id="name" name="name" value=@row.exams_name><br />
+    <strong>考试日期：</strong><br />
+    <input type="text" class="datepicker form-control" id="date" name="date" value=@row.exams_date><br />
+    <strong>考试类型：</strong><br />
+    <select class="form-control" id="type" name="type">
+        <option value=1 @if (1 == row.exams_type) { @: selected="selected"
+                                                }>
+            期中考试
+        </option>
+        <option value=2 @if (2 == row.exams_type) { @: selected="selected"
+                                                }>
+            期末考试
+        </option>
+        <option value=3 @if (3 == row.exams_type) { @: selected="selected"
+                                                }>
+            其他考试
+        </option>
+    </select><br /><br />
+    <input class="btn btn-primary" type="submit" value="确认修改" />
+</form>

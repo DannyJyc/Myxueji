@@ -1,0 +1,33 @@
+﻿@{
+    Layout = "~/_xuejiLayout.cshtml";
+    var id = Request.QueryString["id"];
+    var db = Database.Open("StarterSite");
+    var list = "select *from classes inner join majors on classes.majors_id = majors.id inner join teachers on classes.teachers_id = teachers.id where classes.id = "+id;
+    var row = db.QuerySingle(list);
+    if (IsPost)
+    {
+        var cid = Request.Form["id"];
+        var delete = "delete from classes where id=" + cid;
+        db.Execute(delete);
+        Response.Redirect("~/courses");
+    }
+}
+<form method="post">
+    <dl>
+        <dt class="page-header">班级：@row.classes_year@row.majors_name</dt>
+        <dt class="page-header">课程：<br />
+        @{
+            string temp = row.courses_id;
+            string[] temparry = temp.Split(',');
+        }
+        @foreach (var i in temparry)
+        {
+            var courseslist = "select *from courses where id=" + i;
+            var tp = db.QuerySingle(courseslist, i);
+            <strong><a href="~/examsall.cshtml">@tp.courses_name</a></strong><br />
+        }
+        </dt>
+    </dl>
+    <input type="hidden" id="id" name="id" value=@id>
+    <input class="btn btn-primary" type="submit" value="确认删除" />
+</form>
